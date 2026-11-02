@@ -1,0 +1,286 @@
+---
+// ASCII portrait that scatters away from the cursor, revealing project cards.
+import figure from '../data/portrait/figure.txt?raw';
+import outline from '../data/portrait/outline.txt?raw';
+import { layout, parsePortrait, toText } from '../lib/portrait';
+
+interface Card { href: string; title: string; line: string; status?: string }
+interface Props { cards: Card[] }
+const { cards } = Astro.props;
+
+const p = parsePortrait(figure, outline);
+const { cellH, offY } = layout(p);
+const text = toText(p);
+
+// Where each card lands when the portrait scatters (percent of the stage).
+const spots = [
+  { x: '-10%', y: '2%', angle: '-9deg', size: '44%' },
+  { x: '64%', y: '-4%', angle: '8deg', size: '42%' },
+  { x: '-6%', y: '58%', angle: '6deg', size: '42%' },
+  { x: '62%', y: '54%', angle: '-7deg', size: '44%' },
+];
+---
+
+<div class="portrait-section" data-expanded="false">
+  <div
+    class="portrait-stage"
+    style={`--fs:${(cellH / 5).toFixed(4)}cqw; --top:${((offY / 500) * 100).toFixed(3)}%`}
+  >
+    <a class="portrait-link" href="/about/" aria-label="More about Felipe"></a>
+    <pre class="portrait-fallback" aria-hidden="true">{text}</pre>
+    <canvas class="portrait-canvas" role="img" aria-label="An ASCII-art portrait of Felipe, smiling, wearing glasses"></canvas>
+
+    <div class="card-universe">
+      {cards.slice(0, spots.length).map((c, i) => (
+        <a
+          href={c.href}
+          class="floating-card"
+          tabindex="-1"
+          aria-hidden="true"
+          style={`--x:${spots[i].x};--y:${spots[i].y};--angle:${spots[i].angle};--size:${spots[i].size};--delay:${i * 45}ms;--float:${7 + (i % 3)}s`}
+        >
+          <span class="card-motion">
+            {c.status && <span class="card-status">{c.status}</span>}
+            <span class="card-title">{c.title}</span>
+            <span class="card-line">{c.line}</span>
+          </span>
+        </a>
+      ))}
+    </div>
+  </div>
+  <button class="portrait-hint" type="button" aria-expanded="false">
+    <span class="hint-open">View projects</span><span class="hint-close">Hide projects</span>
+  </button>
+</div>
+
+<script>
+  import figure from '../data/portrait/figure.txt?raw';
+  import outline from '../data/portrait/outline.txt?raw';
+  import { hash, layout, parsePortrait } from '../lib/portrait';
+
+  const p = parsePortrait(figure, outline);
+  const L = layout(p);
+  const SIZE = 800; // canvas logical size; the 500 stage sits at (150, 150)
+  const M = 150;
+
+  interface Pt { x: number; y: number; ch: string; dist: number; curve: number }
+  // kind: 'figure' (the face), 'line' (outline, drawn heavier) or 'dot' (outline dots, muted)
+  interface Group { alpha: number; kind: 'figure' | 'line' | 'dot'; pts: Pt[] }
+
+  // Group glyphs by alpha so each frame does one globalAlpha change per group.
+  // Alpha follows each glyph's measured ink, so hand-typed characters get the right intensity.
+  function build(): Group[] {
+    const buckets = new Map<string, Group>();
+    for (const g of p.glyphs) {
+      const kind = g.layer === 'figure' ? 'figure' : g.ch === '.' || g.ch === '`' ? 'dot' : 'line';
+      const alpha = kind === 'figure' ? 0.3 + 0.7 * g.ink : kind === 'line' ? 1 : 0.5;
+      const a = Math.round(alpha * 12) / 12;
+      const key = `${kind}:${a}`;
+      if (!buckets.has(key)) buckets.set(key, { alpha: a, kind, pts: [] });
+      buckets.get(key)!.pts.push({
+        x: g.c * L.cellW + L.cellW / 2,
+        y: L.offY + g.r * L.cellH + L.cellH / 2,
+        ch: g.ch,
+        dist: 70 + hash(g.c, g.r, 1) * 110,
+        curve: (hash(g.c, g.r, 2) - 0.5) * 44,
+      });
+    }
+    return [...buckets.values()];
+  }
+
+  function mount(section: HTMLElement) {
+    const canvas = section.querySelector<HTMLCanvasElement>('.portrait-canvas')!;
+    const stage = section.querySelector<HTMLElement>('.portrait-stage')!;
+    const link = section.querySelector<HTMLAnchorElement>('.portrait-link')!;
+    const hint = section.querySelector<HTMLButtonElement>('.portrait-hint')!;
+    let pinned = false; // opened with the button: stays open until closed
+    const cards = [...section.querySelectorAll<HTMLAnchorElement>('.floating-card')];
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const root = document.documentElement;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    const groups = build();
+    let ink = '', contourInk = '';
+    const readInk = () => {
+      const cs = getComputedStyle(root);
+      ink = cs.getPropertyValue('--ink-portrait').trim();
+      contourInk = cs.getPropertyValue('--ink-contour').trim();
+    };
+    readInk();
+
+    let u = 0, target = 0, raf = 0, last = 0;
+    const focus = { x: 250, y: 250 }, mouse = { x: 250, y: 250 };
+
+    function draw() {
+      ctx!.clearRect(0, 0, SIZE, SIZE);
+      const e = u * u * (3 - 2 * u);
+      const fade = Math.pow(1 - u, 1.4);
+      if (fade <= 0) return;
+      const arc = Math.sin(e * Math.PI);
+      const size = (L.cellH * (1 - 0.2 * e)).toFixed(2);
+      const fontBody = `500 ${size}px "JetBrains Mono Variable", monospace`;
+      const fontLine = `800 ${size}px "JetBrains Mono Variable", monospace`;
+      ctx!.textRendering = 'geometricPrecision';
+      ctx!.textAlign = 'center';
+      ctx!.textBaseline = 'middle';
+      for (const g of groups) {
+        ctx!.fillStyle = g.kind === 'dot' ? contourInk : ink;
+        ctx!.font = g.kind === 'line' ? fontLine : fontBody; // outline drawn heavier
+        ctx!.globalAlpha = g.alpha * fade;
+        for (const pt of g.pts) {
+          let x = pt.x, y = pt.y;
+          if (e > 0) {
+            const dx = pt.x - focus.x, dy = pt.y - focus.y;
+            const len = Math.hypot(dx, dy) || 1;
+            const nx = dx / len, ny = dy / len;
+            const bend = arc * pt.curve;
+            x += nx * pt.dist * e - ny * bend;
+            y += ny * pt.dist * e + nx * bend;
+          }
+          ctx!.fillText(pt.ch, M + x, M + y);
+        }
+      }
+      ctx!.globalAlpha = 1;
+    }
+
+    function frame(now: number) {
+      const dt = last ? Math.min(now - last, 40) : 16;
+      last = now;
+      const k = Math.min(1, dt / 100);
+      focus.x += (mouse.x - focus.x) * k;
+      focus.y += (mouse.y - focus.y) * k;
+      const step = dt / 850;
+      u = target > u ? Math.min(target, u + step) : Math.max(target, u - step);
+      draw();
+      raf = u !== target ? requestAnimationFrame(frame) : 0;
+    }
+
+    function resize() {
+      const px = Math.max(1, Math.round(canvas.getBoundingClientRect().width * Math.min(devicePixelRatio || 1, 2)));
+      if (canvas.width !== px) {
+        canvas.width = canvas.height = px;
+        ctx!.setTransform(px / SIZE, 0, 0, px / SIZE, 0, 0);
+      }
+      draw();
+    }
+
+    const toStage = (ev: PointerEvent) => {
+      const r = stage.getBoundingClientRect();
+      return {
+        x: Math.max(0, Math.min(500, ((ev.clientX - r.left) / r.width) * 500)),
+        y: Math.max(0, Math.min(500, ((ev.clientY - r.top) / r.height) * 500)),
+      };
+    };
+
+    function reveal(open: boolean, at?: { x: number; y: number }) {
+      if (at) { Object.assign(mouse, at); if (u === 0) Object.assign(focus, at); }
+      target = open ? 1 : 0;
+      section.dataset.expanded = String(open);
+      if (!open) pinned = false;
+      hint.setAttribute('aria-expanded', String(open));
+      cards.forEach((c) => { c.tabIndex = open ? 0 : -1; c.setAttribute('aria-hidden', String(!open)); });
+      if (reduce.matches) { cancelAnimationFrame(raf); raf = 0; u = target; draw(); return; }
+      if (!raf && u !== target) { last = 0; raf = requestAnimationFrame(frame); }
+    }
+
+    section.addEventListener('pointerenter', (ev) => { if (ev.pointerType === 'mouse') reveal(true, toStage(ev)); });
+    section.addEventListener('pointermove', (ev) => { if (ev.pointerType === 'mouse') Object.assign(mouse, toStage(ev)); });
+    section.addEventListener('pointerleave', (ev) => { if (ev.pointerType === 'mouse' && !pinned) reveal(false); });
+    hint.addEventListener('click', () => {
+      const open = !pinned; // not pinned: open and pin (even if hover already opened it); pinned: close
+      pinned = open;
+      reveal(open);
+      if (open && cards[0]) cards[0].focus({ preventScroll: true });
+    });
+    link.addEventListener('focus', () => reveal(true));
+    section.addEventListener('focusout', (ev) => {
+      if (!pinned && !(ev.relatedTarget instanceof Node && section.contains(ev.relatedTarget))) reveal(false);
+    });
+    window.addEventListener('keydown', (ev) => {
+      if (ev.key !== 'Escape' || section.dataset.expanded !== 'true') return;
+      const wasInside = section.contains(document.activeElement);
+      reveal(false);
+      if (wasInside) hint.focus({ preventScroll: true });
+    });
+
+    new ResizeObserver(resize).observe(canvas);
+    document.fonts.load('16px "JetBrains Mono Variable"').finally(() => {
+      resize();
+      section.classList.add('is-live'); // hide the text fallback once the canvas has drawn
+    });
+  }
+
+  document.querySelectorAll<HTMLElement>('.portrait-section').forEach(mount);
+</script>
+
+<style>
+  .portrait-section { position: relative; isolation: isolate; align-self: center; min-width: 0; }
+  .portrait-stage { position: relative; width: 100%; aspect-ratio: 1; container-type: inline-size; }
+  .portrait-link { position: absolute; inset: 0; z-index: 3; display: block; border-radius: 12px; }
+
+  .portrait-canvas {
+    position: absolute; left: -30%; top: -30%; width: 160%; height: 160%;
+    pointer-events: none; display: block;
+  }
+  .portrait-fallback {
+    position: absolute; left: 0; top: var(--top); width: 100%; margin: 0;
+    font-family: var(--font-mono); font-size: var(--fs); line-height: 1; letter-spacing: 0;
+    color: var(--ink-portrait); opacity: 0.8; pointer-events: none; white-space: pre; overflow: visible;
+  }
+  .portrait-section:global(.is-live) .portrait-fallback { visibility: hidden; }
+
+  .card-universe { position: absolute; inset: 0; pointer-events: none; }
+  .floating-card {
+    position: absolute; left: 50%; top: 50%; z-index: 4; width: var(--size);
+    opacity: 0; visibility: hidden; pointer-events: none;
+    transform: translate(-50%, -50%) scale(0.05);
+    transition:
+      left 850ms var(--ease-out), top 850ms var(--ease-out), transform 850ms var(--ease-out),
+      opacity 250ms ease, visibility 250ms ease;
+  }
+  .portrait-section[data-expanded='true'] .floating-card {
+    left: var(--x); top: var(--y); opacity: 1; visibility: visible; pointer-events: auto;
+    transform: translate3d(0, 0, 0) scale(1) rotate(var(--angle));
+    transition-delay: var(--delay);
+  }
+  .card-motion {
+    display: flex; flex-direction: column; gap: 6px; padding: 14px 16px 16px;
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow);
+    animation: card-float var(--float) ease-in-out infinite alternate; animation-play-state: paused;
+  }
+  .portrait-section[data-expanded='true'] .card-motion { animation-play-state: running; }
+  .floating-card:hover .card-motion, .floating-card:focus-visible .card-motion { border-color: var(--underline); }
+  .card-status { font-family: var(--font-mono); font-size: 9.5px; color: var(--muted); }
+  .card-title { font-size: 14px; font-weight: 500; color: var(--fg); letter-spacing: -0.2px; }
+  .card-line { font-size: 11.5px; line-height: 1.5; color: var(--muted); }
+  /* Narrow screens: a tidy 2×2 grid inside the portrait area, so cards never overlap or leave the screen. */
+  @media (max-width: 700px) {
+    .floating-card { width: 48% !important; }
+    .floating-card:nth-child(1) { --x: 0%; --y: 4%; --angle: -2deg; }
+    .floating-card:nth-child(2) { --x: 52%; --y: 8%; --angle: 2deg; }
+    .floating-card:nth-child(3) { --x: 0%; --y: 54%; --angle: 2deg; }
+    .floating-card:nth-child(4) { --x: 52%; --y: 50%; --angle: -2deg; }
+    .card-motion { padding: 11px 12px 12px; gap: 4px; }
+    .card-title { font-size: 13px; }
+    .card-line { font-size: 11px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  }
+  @keyframes card-float {
+    from { transform: translate(-4px, -8px) rotate(-2deg); }
+    to { transform: translate(5px, 12px) rotate(3deg); }
+  }
+
+  .portrait-hint {
+    position: relative; z-index: 5; display: table; margin: 14px auto 0; padding: 6px 12px;
+    border-radius: 999px; font-size: 11px; color: var(--muted);
+    opacity: 0; transform: translateY(6px); pointer-events: none;
+    transition: opacity 250ms ease, transform 250ms ease, color 200ms ease, background 200ms ease, box-shadow 200ms ease;
+  }
+  .portrait-section:hover .portrait-hint, .portrait-section:focus-within .portrait-hint { opacity: 1; transform: none; pointer-events: auto; }
+  .portrait-section[data-expanded='true'] .portrait-hint { background: var(--card); box-shadow: var(--shadow-sm); }
+  .portrait-hint:hover, .portrait-hint:focus-visible { color: var(--fg); }
+  .portrait-hint { border: 0; font: inherit; font-size: 11px; cursor: pointer; background: transparent; }
+  .hint-close, .portrait-hint[aria-expanded='true'] .hint-open { display: none; }
+  .portrait-hint[aria-expanded='true'] .hint-close { display: inline; }
+  @media (hover: none) { .portrait-hint { opacity: 1; transform: none; pointer-events: auto; } }
+</style>

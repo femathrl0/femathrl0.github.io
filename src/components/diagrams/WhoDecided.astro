@@ -1,0 +1,36 @@
+---
+import Arrow from './Arrow.astro';
+const id = 'mn-who';
+const nodes = [
+  { t: 'Felipe', s: ['writes or approves', 'the spec and plan'], hi: true },
+  { t: 'AI coding agents', s: ['implement task by task,', 'tests written first'], hi: false },
+  { t: 'Reviewer agent', s: ['checks each task', 'separately'], hi: false },
+  { t: 'CI · 9 jobs', s: ['tests, RLS, scans,', 'visual regression'], hi: false },
+  { t: 'Felipe', s: ['reviews the output,', 'makes the final call'], hi: true },
+];
+const w = 148, gap = 20, x0 = 20, y = 40, h = 96;
+---
+<svg viewBox="0 0 860 200" role="img" aria-labelledby={`${id}-t ${id}-d`}>
+  <title id={`${id}-t`}>Who decided what</title>
+  <desc id={`${id}-d`}>Felipe writes or approves every spec and plan. AI coding agents implement task by task with tests written first. A separate reviewer agent checks each task. CI runs nine jobs. Felipe reviews the output and makes the final call.</desc>
+  <Arrow id={id} />
+  {nodes.map((n, i) => {
+    const x = x0 + i * (w + gap);
+    return (
+      <g>
+        <rect class={n.hi ? 'dg-box-hi' : 'dg-box'} x={x} y={y} width={w} height={h} />
+        <text class="dg-t" x={x + 12} y={y + 28}>{n.t}</text>
+        {n.s.map((s, j) => <text class="dg-s" x={x + 12} y={y + 52 + j * 18}>{s}</text>)}
+        {i < nodes.length - 1 && (
+          <line class="dg-line" x1={x + w} y1={y + h / 2} x2={x + w + gap - 1} y2={y + h / 2} marker-end={`url(#${id}-h)`} />
+        )}
+      </g>
+    );
+  })}
+  <path class="dg-line-hi" d={`M${x0} 156 v8 h${w} v-8`} />
+  <text class="dg-a" x={x0} y="186">DECIDES</text>
+  <path class="dg-line" d={`M${x0 + (w + gap)} 156 v8 h${3 * w + 2 * gap} v-8`} />
+  <text class="dg-m" x={x0 + (w + gap)} y="186">EXECUTES AND CHECKS</text>
+  <path class="dg-line-hi" d={`M${x0 + 4 * (w + gap)} 156 v8 h${w} v-8`} />
+  <text class="dg-a" x={x0 + 4 * (w + gap)} y="186">DECIDES</text>
+</svg>

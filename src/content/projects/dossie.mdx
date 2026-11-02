@@ -1,0 +1,73 @@
+---
+title: 'Dossiê: a multi-agent evidence dossier for misinformation'
+short: Dossiê
+summary: A multi-agent system that answers a suspicious news link with an evidence dossier instead of a verdict. I led the 5-person team, defined the architecture and integrated every agent into one pipeline.
+order: 2
+role: Team lead & architect
+context: AI Residency, LabLivre (UnB) × Instituto Eldorado · Challenge 1, Fake News & Disinformation
+period: ~6-week challenge, 2026
+status: Completed
+highlights:
+  - Ingestor → three agents in parallel → Synthesizer
+  - Led 5 people; each teammate owned one agent
+  - Runs fully on one laptop, no dedicated GPU
+stack:
+  - Multi-agent pipeline
+  - Parallel fan-out / fan-in
+  - Scrum, 1-week sprints
+  - Story mapping
+  - AI coding agents (plan → execute)
+links:
+  - label: Repository (GitHub)
+    href: https://github.com/eduarda-ogomes/grupo1_ResIA
+---
+
+import Figure from '../../components/Figure.astro';
+import DossieArch from '../../components/diagrams/DossieArch.astro';
+
+## Problem
+
+Fact-checking tools usually return a verdict: true or false. A verdict replaces the reader's own judgment.
+
+Our team's Essential Question was how AI can help people evaluate the reliability of information **without replacing critical thinking**.
+
+## Approach & Architecture
+
+The user submits a suspicious news link or text. The system returns an **evidence dossier, with no verdict**, to support the user's own investigation.
+
+<Figure n="1" caption="The pipeline fans out to three agents in parallel, then merges. Highlighted: the Ingestor, which I implemented.">
+  <DossieArch />
+</Figure>
+
+- **Ingestor:** normalizes the input (URL or raw text) into a structured claim and document.
+- **Evidence agent:** gathers supporting and contradicting sources.
+- **Text Analysis agent:** analyzes linguistic and rhetorical signals in the text.
+- **Socratic agent:** generates questions that guide the user's own reasoning.
+- **Synthesizer:** merges the parallel outputs into one coherent dossier.
+
+The whole system runs on a single MacBook Air M4 (24 GB unified memory, no dedicated GPU). We dropped a distributed multi-machine setup for simplicity.
+
+## My Role
+
+I was the team lead and architect for a 5-person team.
+
+- I led the group: task split, sprints and integration. I orchestrated the people as well as the agents.
+- I defined the system architecture.
+- I integrated every agent into one pipeline.
+- I implemented the Ingestor agent. Each teammate owned one agent under this structure.
+
+We ran Scrum with 1-week sprints and used story mapping for requirements. Development used AI coding agents in a structured plan → execute workflow.
+
+## Outcome
+
+A working end-to-end pipeline that turns a suspicious link or text into an evidence dossier, built by five people in a ~6-week Challenge Based Learning cycle and running on one laptop.
+
+## Stack
+
+- Multi-agent pipeline with parallel fan-out and fan-in
+- Scrum with 1-week sprints, story mapping for requirements
+- AI coding agents in a plan → execute workflow
+
+## Links
+
+- [Repository on GitHub](https://github.com/eduarda-ogomes/grupo1_ResIA)

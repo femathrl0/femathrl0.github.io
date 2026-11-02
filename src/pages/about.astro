@@ -1,0 +1,122 @@
+---
+import Base from '../layouts/Base.astro';
+import site from '../data/site.json';
+import experience from '../data/experience.json';
+import research from '../data/research.json';
+import skills from '../data/skills.json';
+import decisions from '../data/decisions.json';
+---
+
+<Base title="About" description="Experience, decisions, research and skills of Felipe Matheus, Software Engineer.">
+  <article class="page">
+    <a class="back" href="/">
+      <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M14 8H3M7 4L3 8l4 4" fill="none" stroke="currentColor" stroke-width="1.4" /></svg>
+      Back
+    </a>
+    <h1 class="page-title">About</h1>
+    <div class="page-lede">
+      {site.bio.map((p) => <p>{p}</p>)}
+    </div>
+    <div class="actions">
+      <a class="pill pill-solid" href={site.cv} download="Felipe-Matheus-CV.pdf">Download CV<span class="visually-hidden"> (PDF)</span></a>
+      <a class="pill" href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
+    </div>
+
+    <section aria-labelledby="exp-h">
+      <h2 id="exp-h" class="h2">Experience</h2>
+      <ol class="entries">
+        {experience.map((e) => (
+          <li id={e.id}>
+            <div class="row">
+              <h3>{e.role}</h3>
+              {e.period && <span class="when">{e.period}</span>}
+            </div>
+            <p class="org">{e.org} · {e.place}</p>
+            <ul class="dot-list">
+              {e.points.map((pt) => <li>{pt}</li>)}
+            </ul>
+            {e.link && <a class="arrow-link" href={e.link.href}>{e.link.label}<svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4" /></svg></a>}
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section id="decisions" aria-labelledby="dec-h">
+      <h2 id="dec-h" class="h2">Decision log</h2>
+      <p class="note-line">
+        Five calls from <a class="inline-link" href="/work/macronutri/">Macronutri</a>. I made each decision; AI coding agents implemented it under my specs and review.
+      </p>
+      <ol class="entries">
+        {decisions.map((d) => (
+          <li>
+            <div class="row">
+              <h3>{d.title}</h3>
+              <span class="when mono">{d.id}</span>
+            </div>
+            <dl class="meta">
+              <dt>Context</dt><dd>{d.problem}</dd>
+              <dt>Decision</dt><dd>{d.decision}</dd>
+              <dt>Check</dt><dd>{d.verified}</dd>
+            </dl>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section id="research" aria-labelledby="res-h">
+      <h2 id="res-h" class="h2">Research &amp; teaching</h2>
+      <ul class="dot-list">
+        {research.map((r) => (
+          <li>
+            <span class="fg">{r.title}</span>{r.status && <span class="badge">{r.status}</span>}
+            <br />{r.detail}
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section aria-labelledby="sk-h">
+      <h2 id="sk-h" class="h2">Skills</h2>
+      <dl class="meta skills">
+        {skills.map((s) => (<><dt>{s.area}</dt><dd>{s.items.join(', ')}</dd></>))}
+      </dl>
+    </section>
+
+    <section aria-labelledby="ed-h">
+      <h2 id="ed-h" class="h2">Education</h2>
+      <ul class="dot-list">
+        <li><span class="fg">{site.education.degree}</span>, {site.education.school} · {site.education.expected}</li>
+        <li>Languages: {site.languages}</li>
+      </ul>
+    </section>
+  </article>
+</Base>
+
+<style>
+  .page-lede p { margin: 0; }
+  .page-lede p + p { margin-top: 6px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  section { margin-top: 48px; }
+  .h2 { margin: 0 0 14px; font-size: 16px; font-weight: 500; letter-spacing: -0.2px; }
+  .entries { list-style: none; margin: 0; padding: 0; }
+  .entries > li { padding: 18px 0; border-top: 1px solid var(--line); scroll-margin-top: 24px; }
+  .entries > li:first-child { border-top: 0; padding-top: 4px; }
+  .row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 16px; }
+  h3 { margin: 0; font-size: 14px; font-weight: 500; }
+  .when { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .mono { font-family: var(--font-mono); font-size: 11px; }
+  .org { margin: 2px 0 6px; font-size: 13px; color: var(--muted); }
+  .entries .dot-list li { margin: 4px 0; }
+  .entries :global(.arrow-link) { margin-top: 6px; }
+  .note-line { margin: 0 0 8px; font-size: 13px; color: var(--muted); line-height: 1.8; }
+  .meta { margin-top: 8px; font-size: 12.5px; line-height: 1.7; }
+  .meta dd { color: var(--muted); }
+  .meta dt { color: var(--fg); }
+  .skills dt { padding-right: 8px; }
+  .fg { color: var(--fg); }
+  .badge { margin-left: 8px; font-size: 10.5px; padding: 1px 8px; border: 1px solid var(--line); border-radius: 999px; }
+  @media (max-width: 560px) {
+    .meta { grid-template-columns: 1fr; gap: 0; }
+    .meta dd { margin-bottom: 8px; }
+  }
+</style>

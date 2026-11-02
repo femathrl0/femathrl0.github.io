@@ -1,0 +1,40 @@
+{
+  "name": "Felipe Matheus",
+  "fullName": "Felipe Matheus Ribeiro Lopes",
+  "role": "Software Engineer",
+  "headline": "I build, architect and ship software, with AI in the loop and users at the center.",
+  "description": "Felipe Matheus, Software Engineer in Brasília. Co-founder & CTO of Macronutri. Full-stack, software architecture and AI systems, with a UX research background.",
+  "location": "Brasília, DF, Brazil",
+  "languages": "Portuguese (native), English (fluent)",
+  "education": {
+    "degree": "B.Sc. in Software Engineering",
+    "school": "University of Brasília (UnB)",
+    "expected": "Expected Dec 2028"
+  },
+  "bio": [
+    "I'm a Software Engineering student at the University of Brasília (UnB) and an AI Resident at LabLivre × Instituto Eldorado.",
+    "I design, build and ship software, with AI in the architecture and in the workflow.",
+    "As co-founder and CTO of Macronutri, I took a no-code prototype to a production SaaS in three weeks. I made the architecture calls; AI coding agents handled the implementation.",
+    "My background in UX keeps real users at the center of what I build.",
+    "I care about systems that are reliable, secure, and useful to people."
+  ],
+  "contact": {
+    "email": "femathrl@gmail.com",
+    "linkedin": "https://linkedin.com/in/femathrl",
+    "github": "https://github.com/femathrl0"
+  },
+  "cv": "/felipe-matheus-cv.pdf",
+  "revised": "2026-11",
+  "subtitle": {
+    "text": "Software Engineering at",
+    "link": {
+      "label": "UnB",
+      "href": "https://www.unb.br"
+    }
+  },
+  "intro": [
+    "I build, architect and ship software, with AI in the loop and users at the center.",
+    "I'm Brazilian, based in Brasília. Outside of code, I go to the gym, play bass and strategy games, and draw a little."
+  ],
+  "focus": "AI Engineering, Full Stack, Software Architecture"
+}

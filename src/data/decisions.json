@@ -1,0 +1,37 @@
+[
+  {
+    "id": "D-01",
+    "title": "Business rules live in the database, not the UI",
+    "problem": "In the no-code prototype, the free-plan patient limit and the subscription tier were enforced only in the browser, so they could be bypassed.",
+    "decision": "Move the free-plan limit into a Postgres trigger with locking, so concurrent requests can't bypass it. Every table has Row Level Security with per-dietitian isolation. SECURITY DEFINER functions run with a fixed search_path, privileges revoked and then granted explicitly.",
+    "verified": "238 RLS integration tests run in CI against Supabase in Docker."
+  },
+  {
+    "id": "D-02",
+    "title": "A payment can't be cancelled by a race",
+    "problem": "Two simultaneous payment-gateway events could cancel the subscription of a customer who had paid.",
+    "decision": "The Asaas webhook is idempotent, validates signatures on the raw body, and uses optimistic concurrency.",
+    "verified": "A real bug caught in review, then fixed."
+  },
+  {
+    "id": "D-03",
+    "title": "The AI assistant never sees patient names",
+    "problem": "Anna, the in-product assistant, answers clinical-practice questions over health data that is sensitive under LGPD art. 11.",
+    "decision": "Patients are pseudonymized (P1, P2…), and national ID, phone and email are masked. Clinical scope limits are enforced. A monthly AI quota is reserved in the database and refunded if the call fails.",
+    "verified": "A live evaluation suite (eval:anna) tests the assistant's behavior."
+  },
+  {
+    "id": "D-04",
+    "title": "Near-zero fixed cost",
+    "problem": "An early-stage product needs hosting it can afford before revenue, under terms that allow commercial use.",
+    "decision": "Serve the frontend from Cloudflare Workers (Static Assets). Vercel Hobby was evaluated and rejected because its terms prohibit commercial use.",
+    "verified": "Deployed to staging and production through the same reusable pipeline."
+  },
+  {
+    "id": "D-05",
+    "title": "Migration that respects deletion",
+    "problem": "Data had to move from the no-code prototype without bringing back patients deleted on an LGPD request.",
+    "decision": "A repeatable migration tool that runs as a dry run by default and never resurrects deleted patients. Deletion removes Storage files first, then the records.",
+    "verified": "Review caught imports resurrecting deleted patients, and it was fixed."
+  }
+]

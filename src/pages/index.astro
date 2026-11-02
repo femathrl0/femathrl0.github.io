@@ -1,0 +1,137 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Portrait from '../components/Portrait.astro';
+import LinkPreview from '../components/LinkPreview.astro';
+import MacronutriArch from '../components/diagrams/MacronutriArch.astro';
+import DossieArch from '../components/diagrams/DossieArch.astro';
+import site from '../data/site.json';
+import experience from '../data/experience.json';
+
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+const diagrams: Record<string, any> = {
+  macronutri: MacronutriArch,
+  dossie: DossieArch,
+};
+const cards = [
+  ...projects.map((p) => ({
+    href: `/work/${p.id}/`,
+    title: p.data.short,
+    line: p.data.highlights[0] ?? p.data.summary,
+    status: p.data.status.startsWith('In production') ? 'Live in production' : p.data.status,
+  })),
+  { href: '/about/#decisions', title: 'Decision log', line: 'Five architecture calls, and how each was checked.' },
+  { href: '/about/#research', title: 'Research & teaching', line: 'Research paper in progress, two workshops, a neural networks study group.' },
+];
+---
+
+<Base>
+  <section class="intro" aria-labelledby="name">
+    <Portrait cards={cards} />
+
+    <div class="intro-copy">
+      <h1 id="name">{site.name}</h1>
+      <p class="subtitle">
+        {site.subtitle.text} <a class="inline-link" href={site.subtitle.link.href}>{site.subtitle.link.label}</a>
+      </p>
+      <div class="bio">
+        {site.intro.map((line) => <p>{line}</p>)}
+      </div>
+
+      <div class="block preview-scope">
+        <h2 class="section-title">Work</h2>
+        <ul class="dot-list">
+          {experience.map((e) => (
+            <li>
+              {e.roleShort} at{' '}
+              <LinkPreview
+                href={e.href}
+                label={e.orgShort}
+                title={e.role}
+                meta={[e.period, e.place].filter(Boolean).join(' · ')}
+                description={e.blurb}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="block preview-scope" id="projects">
+        <h2 class="section-title">Projects</h2>
+        <ul class="dot-list">
+          {projects.map((p) => {
+            const Diagram = diagrams[p.id];
+            return (
+              <li>
+                <LinkPreview
+                  href={`/work/${p.id}/`}
+                  label={p.data.short}
+                  title={p.data.title.split(':')[0]}
+                  meta={p.data.status}
+                  description={p.data.summary}
+                >
+                  {Diagram && <Diagram slot="media" />}
+                </LinkPreview>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+
+      <section class="quick" aria-labelledby="qv">
+        <h2 id="qv" class="section-title">Quick view</h2>
+        <dl class="qv-grid">
+          <dt>Now</dt><dd>Co-founder &amp; CTO, Macronutri · AI Resident, LabLivre × Eldorado</dd>
+          <dt>Focus</dt><dd>{site.focus}</dd>
+          <dt>Study</dt><dd>{site.education.degree}, UnB · {site.education.expected.replace('Expected ', 'exp. ')}</dd>
+          <dt>Based</dt><dd>{site.location.replace(', DF', '')} · Portuguese, English</dd>
+        </dl>
+        <div class="qv-actions">
+          <a class="pill pill-solid" href={site.cv} download="Felipe-Matheus-CV.pdf">
+            <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M8 2v8M4.5 6.5 8 10l3.5-3.5M3 13h10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            Download CV
+            <span class="visually-hidden">(PDF)</span>
+          </a>
+          <a class="pill" href={`mailto:${site.contact.email}`}>Email me</a>
+        </div>
+      </section>
+
+      <a class="arrow-link more" href="/about/">
+        More about me
+        <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4" /></svg>
+      </a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .intro {
+    flex: 1; display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); gap: 72px; align-items: center;
+    padding-block: 56px 0;
+  }
+  .intro-copy { min-width: 0; }
+  h1 { margin: 0 0 10px; font-size: 42px; font-weight: 500; letter-spacing: -1.8px; line-height: 1.15; }
+  .subtitle { margin: 0; font-size: 14px; color: var(--fg); }
+  .bio { max-width: 400px; margin-top: 18px; color: var(--muted); font-size: 13px; line-height: 1.85; }
+  .bio p { margin: 0; }
+  .bio p + p { margin-top: 8px; }
+  .block { margin-top: 30px; }
+
+  .quick { margin-top: 30px; padding: 16px 18px 18px; border: 1px solid var(--line); border-radius: 14px; max-width: 420px; }
+  .quick .section-title { margin-bottom: 12px; }
+  .qv-grid { display: grid; grid-template-columns: max-content 1fr; gap: 5px 16px; margin: 0; font-size: 12px; line-height: 1.6; }
+  .qv-grid dt { color: var(--muted); }
+  .qv-grid dd { margin: 0; color: var(--fg); }
+  .qv-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+
+  .more { margin-top: 18px; }
+
+  @media (max-width: 1000px) {
+    .intro { gap: 32px; }
+  }
+  @media (max-width: 700px) {
+    .intro { grid-template-columns: minmax(0, 1fr); gap: 24px; padding-top: 32px; }
+    .intro :global(.portrait-section) { width: 100%; max-width: 300px; margin: 0 auto; }
+    h1 { font-size: 36px; letter-spacing: -1.2px; }
+  }
+</style>

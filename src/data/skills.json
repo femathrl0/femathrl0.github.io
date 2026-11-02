@@ -1,0 +1,105 @@
+[
+  {
+    "area": "Full-stack & cloud",
+    "items": [
+      "TypeScript",
+      "React 19",
+      "Vite",
+      "Tailwind CSS",
+      "Supabase",
+      "PostgreSQL 17",
+      "Row Level Security",
+      "Edge Functions (Deno)",
+      "pg_cron",
+      "Cloudflare Workers",
+      "Payment webhooks (Asaas)"
+    ]
+  },
+  {
+    "area": "DevOps & security",
+    "items": [
+      "GitHub Actions CI/CD",
+      "Docker",
+      "Staging / production environments",
+      "Encrypted backups",
+      "Threat modeling",
+      "Penetration testing (OWASP ZAP)",
+      "gitleaks",
+      "osv-scanner",
+      "Vitest",
+      "Playwright"
+    ]
+  },
+  {
+    "area": "AI engineering",
+    "items": [
+      "Multi-agent system design & orchestration",
+      "Spec-driven development with AI coding agents (TDD, reviewer agents, subagents)",
+      "Prompt engineering",
+      "LLM features with pseudonymization, guardrails and live evals",
+      "Databricks Genie tuning (instructions, example SQL, trusted assets, HITL)"
+    ]
+  },
+  {
+    "area": "AI development tools",
+    "items": [
+      "Claude Code",
+      "OpenCode",
+      "Antigravity",
+      "Gemini"
+    ]
+  },
+  {
+    "area": "Machine learning",
+    "items": [
+      "Neural network fundamentals",
+      "Reinforcement learning fundamentals",
+      "Guardrails & shielding"
+    ]
+  },
+  {
+    "area": "Data",
+    "items": [
+      "Python",
+      "SQL (Spark SQL, MySQL)",
+      "MongoDB",
+      "Databricks",
+      "Unity Catalog",
+      "Power BI",
+      "Jupyter"
+    ]
+  },
+  {
+    "area": "Software engineering",
+    "items": [
+      "Software architecture",
+      "Requirements elicitation (story mapping)",
+      "Scrum",
+      "Technical leadership",
+      "Git / GitHub"
+    ]
+  },
+  {
+    "area": "UX",
+    "items": [
+      "User interviews",
+      "Usability testing",
+      "Accessibility (WCAG 2.2 AA)",
+      "Design systems"
+    ]
+  },
+  {
+    "area": "Research",
+    "items": [
+      "Systematic literature reviews",
+      "Technical writing"
+    ]
+  },
+  {
+    "area": "Data governance & privacy",
+    "items": [
+      "LGPD-compliant data masking and handling",
+      "AI governance guidelines"
+    ]
+  }
+]

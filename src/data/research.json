@@ -1,0 +1,28 @@
+[
+  {
+    "kind": "Research",
+    "title": "Research paper on operating and validating AI systems in production",
+    "detail": "Co-authoring with a mentor from the AI Residency, in the MLOps / LLMOps / AIOps space.",
+    "status": "In progress"
+  },
+  {
+    "kind": "Teaching",
+    "title": "Speaker, \"AI Beyond LLMs\" workshop",
+    "detail": "AI Residency. Reinforcement Learning vs. LLMs and when each fits, guardrails, and shielding for safe AI behavior."
+  },
+  {
+    "kind": "Teaching",
+    "title": "Co-lead, \"AI Workflows\" workshop",
+    "detail": "AI Residency. Skills, prompt engineering, subagent-driven development and practical AI-assisted engineering workflows."
+  },
+  {
+    "kind": "Community",
+    "title": "Co-founder & instructor, Neural Networks study group",
+    "detail": "Co-founded and ran a study group on neural networks for one year, teaching the fundamentals to participants."
+  },
+  {
+    "kind": "Research",
+    "title": "Systematic Literature Review: UX Design in Software Engineering",
+    "detail": "ITRAC, UnB. Led a 3-person team that screened 1,500+ papers and produced a final report."
+  }
+]

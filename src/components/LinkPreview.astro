@@ -1,0 +1,78 @@
+---
+// Inline link with a hover/focus preview card. The optional "media" slot holds a small diagram.
+interface Props { href: string; label: string; title: string; meta?: string; description: string }
+const { href, label, title, meta, description } = Astro.props;
+const hasMedia = Astro.slots.has('media');
+---
+
+<span class="link-preview">
+  <a class="inline-link" href={href}>{label}</a>
+  <span class="lp-card" data-open="false" aria-hidden="true">
+    {hasMedia && <span class="lp-media"><slot name="media" /></span>}
+    <span class="lp-copy">
+      {meta && <span class="lp-meta">{meta}</span>}
+      <strong>{title}</strong>
+      <span>{description}</span>
+    </span>
+  </span>
+</span>
+
+<script>
+  const W_WIDE = 290, W_NARROW = 260;
+
+  function place(wrap: HTMLElement, card: HTMLElement) {
+    const vw = document.documentElement.clientWidth;
+    const width = vw <= 700 ? W_NARROW : W_WIDE;
+    const link = wrap.getBoundingClientRect();
+    const list = wrap.closest('.preview-scope');
+    // Sit to the right of the longest link in the same list, so cards never cover the list.
+    const right = Math.max(
+      link.right,
+      ...[...(list?.querySelectorAll('.link-preview .inline-link') ?? [])].map((a) => a.getBoundingClientRect().right),
+    ) + 28;
+    const h = card.offsetHeight || 220;
+    const room = vw - right - 16;
+    let left: number, top: number;
+    if (vw > 1000 && room >= 200) {
+      left = right;
+      top = Math.max(16, Math.min(link.top - 60, window.innerHeight - h - 16));
+    } else {
+      const block = (wrap.closest('.preview-scope') ?? wrap).getBoundingClientRect();
+      left = Math.max(16, (vw - width) / 2);
+      top = block.top - h - 16 >= 16 ? block.top - h - 16 : Math.min(block.bottom + 16, window.innerHeight - h - 16);
+    }
+    card.style.cssText = `left:${left}px;top:${top}px;width:${Math.min(width, vw - 32)}px`;
+  }
+
+  document.querySelectorAll<HTMLElement>('.link-preview').forEach((wrap) => {
+    const card = wrap.querySelector<HTMLElement>('.lp-card')!;
+    const open = () => {
+      card.dataset.open = 'true';
+      place(wrap, card);
+    };
+    const close = () => { card.dataset.open = 'false'; };
+    wrap.addEventListener('mouseenter', open);
+    wrap.addEventListener('mouseleave', close);
+    wrap.addEventListener('focusin', open);
+    wrap.addEventListener('focusout', close);
+    wrap.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+    window.addEventListener('scroll', close, { passive: true });
+  });
+</script>
+
+<style>
+  .link-preview { position: relative; display: inline; }
+  .lp-card {
+    position: fixed; left: 0; top: 0; z-index: 50; width: 290px; display: block;
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow);
+    font-size: 11px; line-height: 1.5; white-space: normal;
+    opacity: 0; visibility: hidden; transform: translateY(6px); pointer-events: none;
+    transition: opacity 180ms ease, transform 180ms ease, visibility 180ms ease;
+  }
+  .lp-card[data-open='true'] { opacity: 1; visibility: visible; transform: none; }
+  .lp-media { display: block; border-bottom: 1px solid var(--line); padding: 12px; background: var(--bg); border-radius: 11px 11px 0 0; }
+  .lp-media :global(svg) { display: block; width: 100%; height: auto; min-width: 0; }
+  .lp-copy { display: flex; flex-direction: column; gap: 4px; padding: 13px 15px 15px; color: var(--muted); }
+  .lp-copy strong { color: var(--fg); font-size: 12px; font-weight: 500; }
+  .lp-meta { font-family: var(--font-mono); font-size: 9.5px; margin-bottom: 4px; }
+</style>

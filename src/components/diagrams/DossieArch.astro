@@ -1,0 +1,44 @@
+---
+import Arrow from './Arrow.astro';
+const id = 'ds-arch';
+const par = [
+  { t: 'Evidence agent', s: ['supporting and', 'contradicting sources'], cy: 54 },
+  { t: 'Text Analysis agent', s: ['linguistic and', 'rhetorical signals'], cy: 150 },
+  { t: 'Socratic agent', s: ['questions that guide', "the user's reasoning"], cy: 246 },
+];
+---
+<svg viewBox="0 0 950 300" role="img" aria-labelledby={`${id}-t ${id}-d`}>
+  <title id={`${id}-t`}>Dossiê pipeline</title>
+  <desc id={`${id}-d`}>The user submits a URL or text. The Ingestor normalizes it into a structured claim and document. Three agents then run in parallel: the Evidence agent gathers supporting and contradicting sources, the Text Analysis agent analyzes linguistic and rhetorical signals, and the Socratic agent generates questions that guide the user's reasoning. The Synthesizer merges their outputs into one evidence dossier with no verdict.</desc>
+  <Arrow id={id} />
+
+  <rect class="dg-box" x="20" y="122" width="110" height="56" />
+  <text class="dg-t" x="34" y="146">Input</text>
+  <text class="dg-s" x="34" y="166">URL or text</text>
+  <line class="dg-line" x1="130" y1="150" x2="158" y2="150" marker-end={`url(#${id}-h)`} />
+
+  <rect class="dg-box-hi" x="160" y="112" width="130" height="76" />
+  <text class="dg-t" x="174" y="138">Ingestor</text>
+  <text class="dg-s" x="174" y="158">normalizes into a</text>
+  <text class="dg-s" x="174" y="175">structured claim</text>
+
+  <text class="dg-a" x="350" y="12">PARALLEL</text>
+  {par.map((p) => (
+    <g>
+      <path class="dg-line" d={`M290 150 H320 V${p.cy} H348`} marker-end={`url(#${id}-h)`} />
+      <rect class="dg-box" x="350" y={p.cy - 32} width="190" height="64" />
+      <text class="dg-t" x="364" y={p.cy - 10}>{p.t}</text>
+      {p.s.map((s, j) => <text class="dg-s" x="364" y={p.cy + 9 + j * 16}>{s}</text>)}
+      <path class="dg-line" d={`M540 ${p.cy} H570 V150 H598`} marker-end={`url(#${id}-h)`} />
+    </g>
+  ))}
+
+  <rect class="dg-box" x="600" y="122" width="130" height="56" />
+  <text class="dg-t" x="614" y="146">Synthesizer</text>
+  <text class="dg-s" x="614" y="166">merges outputs</text>
+  <line class="dg-line-hi" x1="730" y1="150" x2="778" y2="150" marker-end={`url(#${id}-hh)`} />
+
+  <rect class="dg-box-hi" x="780" y="122" width="150" height="56" />
+  <text class="dg-t" x="794" y="146">Evidence dossier</text>
+  <text class="dg-a" x="794" y="166">NO VERDICT</text>
+</svg>

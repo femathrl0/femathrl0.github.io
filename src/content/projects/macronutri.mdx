@@ -1,0 +1,181 @@
+---
+title: 'Macronutri: from a no-code prototype to production, with security in the database'
+short: Macronutri
+summary: A SaaS for Brazilian dietitians. I took it from a no-code prototype to a production product in about three weeks, with the business rules and tenant isolation enforced in Postgres.
+order: 1
+role: Co-founder & CTO
+context: Portuguese-language SaaS for independent dietitians and small clinics
+period: Oct 13 – Nov 1, 2026
+status: In production since 2026-11-01
+highlights:
+  - Every architectural decision mine; AI coding agents implemented under my specs and review
+  - Row Level Security on every table, plan limits enforced by a Postgres trigger
+  - 742 unit tests, 238 RLS integration tests, 9 CI jobs
+  - Threat model over 12 attack surfaces; 68 findings logged, 0 critical
+stack:
+  - React 19
+  - TypeScript
+  - Vite
+  - Tailwind CSS 4
+  - TanStack Query
+  - Supabase
+  - PostgreSQL 17
+  - Edge Functions (Deno 2)
+  - pg_cron
+  - Cloudflare Workers
+  - GitHub Actions
+  - Playwright
+  - Vitest
+links:
+  - label: Live product (app.macronutri.pro)
+    href: https://app.macronutri.pro
+---
+
+import Figure from '../../components/Figure.astro';
+import MacronutriArch from '../../components/diagrams/MacronutriArch.astro';
+import WhoDecided from '../../components/diagrams/WhoDecided.astro';
+import CiFlow from '../../components/diagrams/CiFlow.astro';
+
+## Problem
+
+Macronutri began as a prototype on Base44, a no-code platform. It validated the idea. It was not a product the business could own or scale: no control over the code, the data or the roadmap.
+
+Three problems had to be solved before real dietitians could rely on it:
+
+- **Rules ran only in the browser.** The free-plan patient limit and the subscription tier could be bypassed.
+- **It handles health data.** Health data is sensitive under LGPD (art. 11), Brazil's data protection law. Tenant isolation and complete deletion needed real guarantees.
+- **Professionals already trusted its numbers.** Energy expenditure, calorie and macro targets had to stay numerically identical.
+
+I significantly improved and engineered the prototype into a real, functional product on infrastructure we own.
+
+## Approach & Architecture
+
+The product covers patient records, weight history, anthropometric assessment with photos, energy and macro targets, and a meal-plan editor based on Brazil's TACO food composition table, with custom foods, recipes and substitutions. It exports branded PDFs in the browser, issues immutable clinical documents verifiable by QR code, and includes Anna, an AI assistant for clinical-practice questions. A free plan (up to 3 active patients) and a Pro plan are billed through Asaas.
+
+<Figure n="1" caption="System architecture. The browser never holds a business rule that matters; Postgres does.">
+  <MacronutriArch />
+</Figure>
+
+### Security in the database, not the UI
+
+The free-plan limit moved from the browser into a **Postgres trigger with locking**, so concurrent requests can't bypass it. Every table has **Row Level Security** with per-dietitian isolation. `SECURITY DEFINER` functions are hardened: fixed `search_path`, privileges revoked and then granted explicitly.
+
+### The payment vs. cancellation race
+
+The Asaas webhook is idempotent, validates signatures on the raw body, and uses **optimistic concurrency**. Two simultaneous gateway events can no longer cancel the subscription of a customer who paid.
+
+### Anna never sees patient names
+
+- Patients are pseudonymized (P1, P2…). National ID (CPF), phone and email are masked.
+- Clinical scope limits are enforced.
+- A monthly AI quota is reserved in the database and refunded if the AI call fails.
+- A live evaluation suite (`eval:anna`) tests the assistant.
+
+### Near-zero fixed cost
+
+The frontend runs on Cloudflare Workers (Static Assets). I evaluated Vercel Hobby and rejected it, because its terms prohibit commercial use.
+
+### Safe migration and LGPD-grade deletion
+
+I built a migration tool from Base44. It is repeatable, runs as a dry run by default, and never resurrects patients deleted on an LGPD request. Patient and account deletion removes Storage files first, then the records.
+
+### Security and privacy review
+
+I wrote a formal penetration-testing plan with a threat model covering **12 attack surfaces**: SPA, Auth, PostgREST/RLS, Storage, AI, webhook, cron, public verification, PDFs, supply chain, import, and operations/LGPD. Each attack followed the same loop: write a failing test, fix, keep the test green. The tests were validated by mutation. Tools: OWASP ZAP, gitleaks, osv-scanner, actionlint, npm audit.
+
+Reviews caught real bugs, for example:
+
+- attaching a plan to another dietitian's patient
+- two simultaneous gateway events cancelling a paying subscription
+- Pro access with no expiry
+- imports resurrecting deleted patients
+
+Hardening also covered stronger Auth settings, a Cloudflare Turnstile captcha, security headers and a strict CSP, EXIF stripped from photos, an automated test that no secrets reach the browser, and no personal data in logs or emails. Storage is private, with per-user policies and short-lived signed URLs. Retention jobs run on pg_cron. Money is stored as integer cents.
+
+### Delivery pipeline
+
+<Figure n="2" caption="CI/CD. Staging follows every green push; production needs a person, a confirmation and a fresh backup.">
+  <CiFlow />
+</Figure>
+
+Staging and production are separate Supabase projects in the São Paulo region, with per-environment secrets and Google OAuth. The domain runs on Cloudflare with DNSSEC, Email Routing, SPF and DMARC. Resend sends email; UptimeRobot monitors uptime.
+
+Frontend data-access functions receive their client as a parameter, so they are testable with no global client. A performance budget (≤ 300 KB gzip initial JS) is enforced in CI, and a lint rule blocks heavy imports in the initial bundle.
+
+## My Role
+
+I was co-founder and CTO. I made every strategic and architectural decision: the stack, the data model and security model, the privacy and LGPD approach, infrastructure and cost architecture, CI/CD design, and the technical roadmap.
+
+AI coding agents handled the operational implementation. I used Claude Code alongside OpenCode, Antigravity and Gemini in a spec-driven workflow.
+
+<Figure n="3" caption="Who decided what. Agents execute; I decide what ships.">
+  <WhoDecided />
+</Figure>
+
+- I wrote or approved every spec and plan: 31 versioned specs and implementation plans, plus a decision ledger.
+- Agents implemented the work task by task, with tests written before code.
+- A separate reviewer agent checked each task.
+- I reviewed the output and made the final call.
+- Commits are co-authored by Claude, as transparent AI usage.
+
+I also operated the real infrastructure myself: accounts, domain, DNS, secrets, OAuth and deploys.
+
+### UX research and design
+
+My UX work at ITRAC taught me to design around real users before writing code. Here that meant **interviews and usability tests with dietitians** to shape flows and priorities.
+
+- **Numerical parity** with the prototype's calculations, so professionals could keep trusting the numbers they relied on.
+- **Accessibility as a requirement:** WCAG 2.2 AA, palette contrast verified by automated tests, axe checks in Playwright, keyboard navigation, `prefers-reduced-motion` respected.
+- **A token-based design system:** lint blocks any literal colour outside the token file, and visual regression tests run in Playwright.
+- **Documented visual identity iterations:** a replica of the prototype, then an Apple HIG-inspired look, then a terracotta palette with seven themes, and finally the current "Clinical Blue" identity. The co-founder/CEO provided the logo; I implemented it in code across symbol geometry, icons, favicon and PDFs.
+
+On the business side, I worked with the co-founder/CEO on positioning, pricing analysis against the main competitor, a 90-day go-to-market plan, unit-economics estimates and a legal/tax launch checklist.
+
+## Outcome
+
+Macronutri has been live in production with real users since **November 1, 2026**. Staging went up on October 29 and Google login on October 30.
+
+<div class="table-scroll">
+
+| Engineering by numbers | |
+|---|---|
+| Period | Oct 13 – Nov 1, 2026 (~3 weeks) |
+| Commits | 497 |
+| Application TypeScript (excluding tests) | ~17k lines |
+| SQL migrations (forward-only) | 40 |
+| Server functions (Deno / Edge Functions) | 4 |
+| Feature modules / screens | 13 / ~30 |
+| Unit tests / RLS integration tests | 742 / 238 |
+| CI jobs | 9 |
+| Versioned specs & plans | 31 |
+| Initial JS budget | ≤ 300 KB gzip, enforced in CI |
+
+</div>
+
+<div class="table-scroll">
+
+| Security findings | Logged | Fixed |
+|---|---|---|
+| Critical | 0 | — |
+| High | 2 | 2 |
+| Medium | 19 | 17 |
+| Low / informational | 47 | — |
+
+</div>
+
+All findings are logged, and there is an incident-response plan.
+
+## Stack
+
+- **Frontend:** React 19, TypeScript, Vite, Tailwind CSS 4, TanStack Query, React Router, Zod, jsPDF, PWA (Workbox), self-hosted fonts
+- **Backend:** Supabase (PostgreSQL 17, RLS, Auth, Storage, Edge Functions on Deno 2, pg_cron)
+- **AI in the product:** LLM assistant with pseudonymization, scope limits and a live eval suite
+- **AI development tooling:** Claude Code, OpenCode, Antigravity, Gemini
+- **Payments / email:** Asaas, Resend
+- **Infrastructure:** Cloudflare Workers, DNS and Email Routing; Docker (rootless nginx); GitHub Actions; UptimeRobot
+- **Quality / security:** Vitest, Playwright, axe, ESLint, Stylelint, OWASP ZAP, gitleaks, osv-scanner, actionlint, npm audit
+
+## Links
+
+- [Live product: app.macronutri.pro](https://app.macronutri.pro) (Portuguese)
+- The repository is private. This page shows diagrams only; no patient data, secrets or internal configuration.

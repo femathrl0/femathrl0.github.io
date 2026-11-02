@@ -1,0 +1,61 @@
+{
+  "summary": "Software Engineer who designs, builds and ships products with AI in the architecture and in the workflow. Co-founder and CTO of Macronutri, taken from a no-code prototype to production in three weeks. A UX research background keeps real users at the center of what I build.",
+  "orgs": {
+    "macronutri": "Macronutri",
+    "residency": "AI Residency, LabLivre (UnB) × Instituto Eldorado",
+    "cni": "CNI (National Confederation of Industry)",
+    "itrac": "ITRAC, UnB"
+  },
+  "experience": {
+    "macronutri": [
+      "Took a SaaS for Brazilian dietitians from a no-code prototype (Base44) to a product live in production in about three weeks.",
+      "Owned every architectural decision: stack, data model, security and LGPD privacy model, infrastructure, CI/CD. AI coding agents implemented under my specs and review.",
+      "Led UX, including interviews and usability tests with dietitians."
+    ],
+    "residency": [
+      "Selected for an 8-month, in-person residency in applied AI and data science, run as Challenge Based Learning.",
+      "Led a 5-person team on Dossiê, a multi-agent system for suspicious news: defined the architecture, ran the sprints, integrated every agent."
+    ],
+    "cni": [
+      "Built about three AI agents; one cut the production cycle of PEG technical reports from 2–4 weeks to 1–2 weeks.",
+      "Built and tuned a production Databricks Genie agent over Unity Catalog (instructions, example SQL, trusted assets, human-in-the-loop review).",
+      "Led AI implementation guidelines and a reference manual; masked Spark SQL queries for LGPD compliance."
+    ],
+    "itrac": [
+      "UX for projects with Brazil's Ministry of Management and Innovation in Public Services (MGI).",
+      "Led a 3-person Systematic Literature Review on UX Design in Software Engineering (1,500+ papers screened)."
+    ]
+  },
+  "projects": {
+    "macronutri": "React 19, Supabase (PostgreSQL 17, RLS on every table), Cloudflare Workers. 742 unit and 238 RLS tests, 9 CI jobs, threat model over 12 attack surfaces (68 findings, 0 critical). Live at app.macronutri.pro.",
+    "dossie": "Ingestor → Evidence, Text Analysis and Socratic agents in parallel → Synthesizer. Returns an evidence dossier, never a verdict. I built the Ingestor."
+  },
+  "research": [
+    "Research paper on operating and validating AI systems in production (in progress)",
+    "Speaker, \"AI Beyond LLMs\" workshop",
+    "Co-lead, \"AI Workflows\" workshop",
+    "Co-founder & instructor, Neural Networks study group (1 year)"
+  ],
+  "skills": [
+    [
+      "Engineering",
+      "TypeScript, React, Vite, Tailwind CSS, Supabase / PostgreSQL (RLS, Edge Functions, pg_cron), Cloudflare Workers, software architecture"
+    ],
+    [
+      "DevOps & security",
+      "GitHub Actions CI/CD, Docker, threat modeling, OWASP ZAP, gitleaks, osv-scanner, Vitest, Playwright"
+    ],
+    [
+      "AI",
+      "Multi-agent systems, spec-driven development with AI coding agents (Claude Code, OpenCode, Antigravity, Gemini), prompt engineering, LLM guardrails and evals, Databricks Genie"
+    ],
+    [
+      "Data",
+      "Python, SQL (Spark SQL, MySQL), MongoDB, Databricks, Unity Catalog, Power BI"
+    ],
+    [
+      "UX & process",
+      "User interviews, usability testing, WCAG 2.2 AA, design systems, requirements elicitation, Scrum, LGPD data handling"
+    ]
+  ]
+}

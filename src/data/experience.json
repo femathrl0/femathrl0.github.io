@@ -1,0 +1,83 @@
+[
+  {
+    "role": "Co-founder & CTO",
+    "org": "Macronutri",
+    "place": "Remote",
+    "period": "Oct 2026 – present",
+    "current": true,
+    "points": [
+      "Took Macronutri, a SaaS for Brazilian dietitians, from a no-code prototype on Base44 to a product live in production in about three weeks.",
+      "Owned every strategic and architectural decision: stack, data model, security and privacy model, infrastructure, cost architecture and technical roadmap. AI coding agents carried out implementation under my specs and review.",
+      "Led UX for the product, including interviews and usability tests with dietitians.",
+      "Worked with the co-founder/CEO on product scope, positioning and go-to-market."
+    ],
+    "link": {
+      "label": "Case study",
+      "href": "/work/macronutri/"
+    },
+    "id": "macronutri",
+    "orgShort": "Macronutri",
+    "roleShort": "Co-founder & CTO",
+    "blurb": "SaaS for Brazilian dietitians, live in production since Nov 2026.",
+    "href": "/work/macronutri/"
+  },
+  {
+    "role": "AI Resident & Researcher",
+    "org": "AI Residency, LabLivre (UnB) × Instituto Eldorado",
+    "place": "Gama, DF",
+    "period": "Sep 2026 – present",
+    "current": true,
+    "points": [
+      "Selected for an 8-month, in-person residency in applied AI and data science, run as Challenge Based Learning: real-world challenges, 5-person teams, weekly sprints and public showcases.",
+      "Led a 5-person team on Dossiê, a multi-agent system that builds evidence dossiers for suspicious news. Coordinated people and sprints, defined the architecture, and orchestrated the agents into one pipeline.",
+      "Speaker at the \"AI Beyond LLMs\" workshop and co-lead of the \"AI Workflows\" workshop for the cohort.",
+      "Co-authoring a research paper with a residency mentor in the MLOps / LLMOps / AIOps space (in progress)."
+    ],
+    "link": {
+      "label": "Dossiê case study",
+      "href": "/work/dossie/"
+    },
+    "id": "residency",
+    "orgShort": "LabLivre × Instituto Eldorado",
+    "roleShort": "AI Resident",
+    "blurb": "8-month applied AI residency. Led a 5-person team on Dossiê.",
+    "href": "/about/#residency"
+  },
+  {
+    "role": "Data Science & Analytics Intern",
+    "org": "CNI (National Confederation of Industry), Strategy & Performance",
+    "place": "Brasília, DF",
+    "period": "2026",
+    "current": false,
+    "points": [
+      "Monitored national industry indicators with Python, Databricks and Power BI.",
+      "Built about three AI agents for the team. One cut the production cycle of technical reports for the Management Efficiency Program (PEG) from 2–4 weeks to 1–2 weeks.",
+      "Built and tuned a Databricks Genie (AI/BI) agent over Unity Catalog, running in production: instruction tuning, example SQL queries, trusted assets, human-in-the-loop review and periodic answer revalidation.",
+      "In the AI & AI Agents unit of the Data Office, led the creation of guidelines and a reference manual for implementing AI tools: design system, architecture, requirements elicitation and governance.",
+      "Masked Spark SQL queries over the corporate data lake to comply with LGPD, Brazil's data protection law.",
+      "Wrote Python scripts for value reconciliation and data checks, using AI-assisted development."
+    ],
+    "id": "cni",
+    "orgShort": "CNI",
+    "roleShort": "Data Science & Analytics Intern",
+    "blurb": "AI agents, a production Databricks Genie, LGPD-compliant data work.",
+    "href": "/about/#cni"
+  },
+  {
+    "role": "UX Designer & Research Assistant",
+    "org": "ITRAC, Software Engineering Lab, UnB",
+    "place": "Brasília, DF",
+    "period": null,
+    "current": false,
+    "points": [
+      "Worked on UX for projects in collaboration with Brazil's Ministry of Management and Innovation in Public Services (MGI).",
+      "Led a 3-person team in a Systematic Literature Review on the state of the art of UX Design in Software Engineering. The team screened 1,500+ papers and produced a final report.",
+      "This foundation in research methods and user-centered design shaped how I designed Macronutri."
+    ],
+    "id": "itrac",
+    "orgShort": "ITRAC, UnB",
+    "roleShort": "UX Designer & Research Assistant",
+    "blurb": "UX for public-service projects; led a 1,500+ paper literature review.",
+    "href": "/about/#itrac"
+  }
+]

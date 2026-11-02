@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+.impeccable/config.local.json
+portrait/
+public/felipe-matheus-cv.pdf
+.impeccable/hook.cache.json
+.impeccable/questions/

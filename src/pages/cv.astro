@@ -1,0 +1,119 @@
+---
+// One-page, print-ready CV. Roles, dates and projects come from the site's data;
+// the condensed wording lives in src/data/cv.json.
+// scripts/build-cv.mjs renders this page to /felipe-matheus-cv.pdf after every build.
+import '@fontsource-variable/hanken-grotesk/wght.css';
+import { getCollection } from 'astro:content';
+import site from '../data/site.json';
+import experience from '../data/experience.json';
+import cv from '../data/cv.json';
+
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+const host = new URL(Astro.site!).host;
+const points = cv.experience as Record<string, string[]>;
+const blurbs = cv.projects as Record<string, string>;
+const orgs = cv.orgs as Record<string, string>;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>{site.fullName} · CV</title>
+  </head>
+  <body>
+    <main class="cv">
+      <header>
+        <div>
+          <h1>{site.fullName}</h1>
+          <p class="role">{site.role} · {site.location}</p>
+        </div>
+        <p class="contact">
+          <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
+          <a href={site.contact.linkedin}>linkedin.com/in/femathrl</a>
+          <a href={site.contact.github}>github.com/femathrl0</a>
+          <a href={Astro.site!.toString()}>{host}</a>
+        </p>
+      </header>
+
+      <p class="summary">{cv.summary}</p>
+
+      <section>
+        <h2>Experience</h2>
+        {experience.map((e) => (
+          <div class="item">
+            <div class="line">
+              <h3>{e.role} <span class="at">· {orgs[e.id] ?? e.org}</span></h3>
+              <span class="when">{[e.period, e.place].filter(Boolean).join(' · ')}</span>
+            </div>
+            <ul>{(points[e.id] ?? e.points).map((p) => <li>{p}</li>)}</ul>
+          </div>
+        ))}
+      </section>
+
+      <section>
+        <h2>Projects</h2>
+        {projects.map((p) => (
+          <div class="item">
+            <div class="line">
+              <h3>{p.data.short} {p.data.role && <span class="at">· {p.data.role}</span>}</h3>
+              <span class="when">{p.data.status}</span>
+            </div>
+            <p class="ctx">{blurbs[p.id] ?? p.data.summary}</p>
+          </div>
+        ))}
+      </section>
+
+      <section>
+        <h2>Research &amp; teaching</h2>
+        <p class="ctx">{cv.research.join(' · ')}</p>
+      </section>
+
+      <section>
+        <h2>Skills</h2>
+        <dl>
+          {cv.skills.map(([area, items]) => (<><dt>{area}</dt><dd>{items}</dd></>))}
+        </dl>
+      </section>
+
+      <section>
+        <h2>Education &amp; languages</h2>
+        <p class="ctx"><strong>{site.education.degree}</strong>, {site.education.school}, {site.education.expected.replace('Expected', 'expected')} · {site.languages}</p>
+      </section>
+    </main>
+  </body>
+</html>
+
+<style is:global>
+  @page { size: A4; margin: 11mm 13mm; }
+  html { background: #fff; color: #1d1d1a; font-family: 'Hanken Grotesk Variable', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  body { margin: 0; }
+  .cv { max-width: 184mm; margin: 0 auto; padding: 10mm 0; font-size: 9pt; line-height: 1.38; }
+  @media print { .cv { padding: 0; } }
+  a { color: inherit; text-decoration: none; }
+  header { display: flex; justify-content: space-between; align-items: flex-end; gap: 12pt; border-bottom: 1px solid #d9d7cf; padding-bottom: 7pt; }
+  h1 { margin: 0; font-size: 19pt; font-weight: 500; letter-spacing: -0.4pt; line-height: 1.1; }
+  .role { margin: 2pt 0 0; font-size: 10pt; color: #4a4943; }
+  .contact { margin: 0; display: flex; flex-direction: column; align-items: flex-end; gap: 1pt; font-size: 8.2pt; color: #4a4943; }
+  @media screen { .contact a { display: inline-block; padding: 5px 0; } }
+  .summary { margin: 7pt 0 0; color: #33332e; }
+  section { margin-top: 8pt; }
+  h2 { break-after: avoid; margin: 0 0 3pt; font-size: 7.8pt; font-weight: 600; letter-spacing: 0.8pt; text-transform: uppercase; color: #6b6a61; }
+  h3 { margin: 0; font-size: 9.6pt; font-weight: 600; }
+  .at { font-weight: 400; color: #4a4943; }
+  .item { margin-top: 5pt; break-inside: avoid; }
+  .item:first-of-type { margin-top: 0; }
+  .line { display: flex; justify-content: space-between; align-items: baseline; gap: 10pt; }
+  .when { flex: none; font-size: 8.2pt; color: #6b6a61; font-variant-numeric: tabular-nums; }
+  .ctx { margin: 1.5pt 0 0; color: #33332e; }
+  p { margin: 0; }
+  ul { margin: 2pt 0 0; padding-left: 11pt; }
+  li { margin: 0.8pt 0; }
+  li::marker { color: #8a887e; }
+  strong { font-weight: 600; }
+  dl { display: grid; grid-template-columns: 30mm 1fr; gap: 1.5pt 8pt; margin: 0; }
+  dt { font-weight: 600; }
+  dd { margin: 0; color: #33332e; }
+</style>
