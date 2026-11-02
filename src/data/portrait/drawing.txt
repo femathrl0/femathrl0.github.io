@@ -1,0 +1,110 @@
+                                                            .  .  .  .  .  .  .
+                                                      .  .                       .  .
+                                                   .                                   .
+                                                .               ------------              .
+                                             .           --------          -------           .
+                                          .          //---   @@@MO)/+)uuoOOOM$   -----          .
+                                          .       --//  @@@Mo=!!!;;;:::::::;::::/OW  \\\\       .  .
+                                       .       //--  @W)==;:;:::::::::::::::::::::::T#  \\\\       .
+                                    .        ///  @@Z)!:::::::::::::::::::::::::::::::!aW  \-\        .
+                                    .      /// @D)==!;:::::::::::::::::::::!+=:::::::::::!## \\\      .
+                                 .       /// @$=!;::::::::::;=/Z#ODMMODDD#OD#aou)!:::::::::::o \\\       .
+                                 .     /// @WT;;!:::::=)o##OOOO#DDDMMMMMMMMMDDDDDDMD##a!::::::=@ \\\     .
+                                      // @Wo!::;:::+ZOOODDDDDODODDDDMMMMMM$MDMDDDMDMMMMMa+!:::::o$ \\
+                              .      // @u=;::;:TOMMDDDDDDDDDDOOOODDDODM$MMMDDDDDDMMMMDMDDD#+:::::) \\      .
+                              .     // @=::::!aWMMMDDOOODDOOOODDOODDODDDMMMMMDMMMDMMMMMDDMMDMo:::::o \\     .
+                              .     / @);:::+MMDMDD###O#O#OOODDD##OODDDDDMDDMMMMMMMMDMMMMMDMMMa!::::! \\
+                                   // a!:::)MMMMDO#####a#####OOOOOOOOOOOODDDMMMDDMMMMMMMMMMMDDD#T::::+ \\
+                                  // @/;:;oDMDDDO#aaaaaa######OOOODOOOODOOODDMDDMMMMM$MM$MMMDOODO#::::a \
+                                  / @T!::uDMMMDO##aaZaZa##Zaa###OOOOOOODODDDDDDMMDDMD$D$DDDDDOODDDo:::! |
+                           .      | @!;:/DMMDDO#aaZZZZZZaaaZZDO##O##OOOOOOODDMMDDDDDDDDDDDDDDDDOOO#+:::o||     .
+                           .     || a!;!aDMMDO#aaaZoZZZZZaZZooa###a#OOO##O#OO####OODODDDDDDDDDOOOOOu:::/ |     .
+                           .     | @!;!TODDDDO#aZZZoooZZZaZZaZa########O##O####aaaaa####OOODDDODOOO#=::: |     .
+                           .     | W;!=#MDDDO##aZZooZaaaaaaaa#DDO#O####a###aaaaZZaaaa###OODODDDDOOOOZ::: ||    .
+                           .     | a;!)#DDDO##aaaZZaa######OOMDDODOO##aa#aZoZaaaaaa###ODDDDDDDDODDDDD;::/ |    .
+                           .     | a;=u$MDDO#aa#aaaa######OODDDDMDDO#aZaaZZZZaa#####ODDMMMMDDDMODODDM+::/ |    .
+                           .     | #;=a$DDD###aZa##a#a####OM$DDDDDMD##aaaaaZaa#ODO#ODM$$MMMDDDDDDMDM$T::+|     .
+                           .     | O:/O$MDO###aaaZZZZZaaaa#OODDDDMDD##aa##aZ##ODDODM$W$MDDMO##ODMDDDMD=:/|     .
+                           .     | M!)D$MDOO#aZu/+==!!;:;+T#O#MDDDDO####O#aa###DDOo+!!=!+T)///aDMDDDM$): |     .
+                           .     | @;uW$MMDD#)!:::::::::::;!/)o#O###a#OMDOaaauou)!;;::;;;!;!+=+)uODOD$Z: ||    .
+                           .     || /oW$M@D#o+/TZ#D$W@@@WW$$OaoT)uuoZ#O$WM#u)+TZ#MMMO#aaouZaa###aa#DM$O: |     .
+                                  | #o@$$W@@@@@WM#O#OOOO#auuoaOMMM/=/u#DMaOMW$MDOOaZuTuuuoa#DOO##ou#M@M: |     .
+                                  | Mo@W@@OuouuZa####OOOO#oT)/===)#MD#OD@@@@W$MDau)/))TuZa#OM$DaaaZaW$@# \\    .
+                                  | @@@@@D#OuouTuTToaODO#o)==!!;!)@!;/#MM$@@WWDo/=::::;=+ToaZ)uuuaZ#$@@#@ |
+                           .      | @@@@@O##/)TTTT)////Tu/==::::uW@!=)#O$W@@@$Z!::::::::;/)TT)TuuuouO@@=$ |    .
+                                  | @aW@@#Zu))!;:uD=:::;;//::;!a$@o+/u#ODWWM@DDo=:::::::=ou#=:;+o#OO$@W=@ |       .
+                        .        -| @ZD@@Zou+=!=+/oT=!!;;;;:!==+T$++)ua#D$$WM@DMu::::::::!D#/+!+Ta#D@@M+@||
+                        .     /---- WaMM@OouT))))uuuuuT/!;!!==/T@o++)ua#O$W$@@$M#);:::;=)ua#aaaa##OMW@OO@\----\      .
+                             // @MW@@@DD@@oouuuuooooooT)===+++/DO===+Ta#OM$WW@WMDauu)+++)uoa#DDD#DMW@OOM@aZa# \\     .
+                             | @#aouDWMD#@@M##ZooZooooTTTTTToaOo/+===)o#DMM$WW@WD##OM$$$$MMD#####OOO###DT/uZo# |     .
+                             | @=o#aaWMO##a#ODMW@@@@@@@@@@W$O+;+//+=/)#OM$$$MM$W$DOaZoouuua####OOO#########u:) |     .
+                        .    ||@T=$O#WMO#aaaZa#aaaZZouuT)))/===+))//uoOMW$$$$MM$W$MOauuuooooa##ODD#OO####MD=:# |     .
+                        .    \\ @/@##@DOa#aa#aaaaaaZZouuuuuT=+)Tu))Ta#D$$$$$$M$$$W$$#ZoZooZZZa##OOODO####DD;)@//     .
+                        .     \\ WWaTWDO#a##########aZZouT+!uoou)+))#D$WWWWWWWWWMDDD#aaaZaZZa##OOOOOO##aDDD/W//      .
+                        .      \ @D/=$M#a####a#OOODDO##o)=:)aouT+!=+aD$WWWWWW$$$W$#uuuoaZZaaa##OODOO####u#OD //
+                               \\ @/=#D#######ODDM$MMDOo)=:)uoZu+!;;T#D$W$$WW@WWW$Do+=//)uZ#ODDDDODD####=+O$//    .
+                                | @o=TM#######OMM$$$$M$#T=!!/a#T::::!)#M$W@DT==ZODD#Z!:;=)TaODMMDDDDO###:+O |     .
+                           .    \| Ooo$O###a##OM$$$$$WMoT)++!;:::::::=a$M$W$$Da#ODMDOZ;::!)Z#DDDMDOOO##o!aD |     .
+                           .     \ @aMMD#aZZa#OMM$$$WMouTT)/+=;;:;;;+)#MDDMD$MMMDMDDO##+::=ToDDDDODOOO##Oa ||     .
+                           .     \\ WD$D#aooZaO$$$$WDo)//)))))+//+)oaZa##O$M$M$$MDDDDO##a::=ua#ODO##O#O### |
+                                  \ @ODD#Zuooa#M$W$Z)+=/))TuT)))/)oZZZouuo#MMMMMMDDODD####!:)aa#OO#OO###OD |
+                                  \\ MDM#ZuuoaOWW@)/+/)TuuTT))+/)uuaaaZZZo#DDD$MMMM$MMDO#aa!:uZa#O#OO###O //
+                                   \\@DM#auuoZMWW#)TT))))+====!!==!!=uoaaaoa##DDM$$$$MMD###o;+###OO#O#OOM//
+                              .     \\W@OaoooZDW@#ZOa);:::;;u#/T#/!aaao#$W@DoOOooaoouZ#OaaO#!;aOOOOOO#O# /     .
+                              .      \\@MaZooo#@W@aDDu=::::=OWD$W@MWWW@@WW$@W@@@@@Oa!!!=;!Z#;!Z#O#OO##M //     .
+                                     \\ WOaZuuo$WWM##o)/::::o$aD$@@WW$@@W$$@@@@OW@#)!;/T++ua:)a###ODDDD//
+                                      \ @$aZooo#WWW#ZuTuT=!!!!==++T#D$$aW@$DOu)))uu)/#D#o)u)=o##O#ODOD |
+                                 .    \\ @#aZZuZO$$OoTuuoou+=!+)ooo##o))+uuo#MWDaaa#D$D#aou/ua##OODDOD//
+                                 .     \\@MaaZoZa#O#Z)TTuoZou)//TTooaooouuoa#M$$$W$$$MDO#Zuuo##O#ODDO /     .
+                                 .     \\ @DZoaaooaaZT)TTuoooaZaa#OOMDDDDDDOM$$$$$$$MDO##aZaa####OOO //     .
+                                        \\ @#ZoouoooZo))TTTuuoaaODDDMDOODDODDM$$$$$MDDO#a###a######D//      .
+                                         \\ @#ououTuuuu)//))TuooZOO#O#a##aa#OMMM$MMD###a#OO####aa#O//
+                                    .     | @DaooouououTT//+/)TuZZaaZZZaaa###OOODO##ZZa##O#OO##aa# /     .
+                                    .     | @DOaoouoouuT))))//////)))TuuaZ###O##aaaZZaa#OOOO##aaO //     .
+                                    .     | @D#OaouuuuouTTTT)))/++/))uoaOOOOO#O###a####OOO###aa#M |
+                                    .     | @DO#aZoT)TuoouuuTuTu)Tuouo###OODDDDDD#OOOOO###aaZ#OO$ |
+                                    .     | @D##aZoT))uuuuuuTuTTouoaa##O#DDMMMMMMMMDODO#aZaa#DDD$ |      .
+                                 .       // @DO##aZuT)))TouTTT))uua#DODOODMMMM$$MMDDDO#aoo#OOODD$ \      .
+                                 .     /// @@MO##aaouu)//)))))//TZZZ#ODDDDMMDDDMDDO##aZu#ODDDDDMW!\\\
+                                      // a+ZWMO##aaoouuT/====+=!+TouZ#O###aO#####ZaZuo#DDDMD$DM$$;! \\
+                              .      // T::a$MO####aoZouT)=!!;!;++)))Tuuuuuuuuuuu))u#ODDMMMMM$$$@;:! \      .
+                              .     // Z:::aMDOO###aZZooT)//=!;;;!!!!=!;;;!!;==)TZ#ODDMMMMMM$$$$@!::/\\     .
+                              .     / W!:::uMDOOO###aaaouuT))+=!!;;!!==///TTToa#DDDMMMMMMMMMMMM$@!::; \\    .
+                              .    // o!:::=#DDDOOO##aaZouuT)))++/))uuoZaaa###ODDDMMMMMMMM$$M$M$@!:::T \\      .
+                           .       / @/!;:::T#ODDDDD#O#ZZoou)))/)))Tua###ODDDDDMM$$$$$$MM$MM$$$W@:::::W \\     .  .
+                        .         // O/!!;;:;TaDDDDDODO#aaoouTTTTTTuuZ##OODDD$M$M$$$$$$M$$$$$$$@u:::::TD \\       .  .
+                     .  .       -// @T/=!;;;;!u#OOODDODDO#aaouuuuTTuuoZaODDDOM$$$$$MMM$M$MMM$MW@;:::::=/D \\\        .  .
+                  .  .       //-- @@oT)=!!!;;!=uaOOODDDDDD#aZoooooooooa##DDD$W$$$$$$MM$$$$$M$$@!::::::;!=a@ ----           .  .
+               .  .        /// @@MDou)+===!!!!!=uaOODDMMMMO#aZoo##aaZoa##ODMMM$$$$$MMM$$$$$$$@T::::::::!!=o$MM \---           .  .
+            .  .         /// @OooZouT)/+===!!!!!!)a#DM$MM$D#aZZZ##O#####ODDM$$$$$$$$$$$$M$$$@o:::::::::!;!=uu)=#W -----          .  .  .  .  .
+.  .  .  .            ---- @@#ZoouT))))/++===!!=!!/ZDM$$W$$D#ooa#OOODDDODMMMM$$$$$$$$$$W$$W@T:::::::::;!;!=+=!)/+oW@  -----                  .  .
+                  ----- @@O#ZouooTT)))))/+===!!;!!!+oDM$W$$$MD#ZaDODDDMMMMMM$$$$$$$$$$$$$@@/::::::::::;!!!!);:=++==)uuMW@ -----                    .
+               ----  @@DaaaouuuuuTTTT)))//+==!!!!!!!=u#$$$$$$$M#a#DMMM$$$$$$$$$$W$$$$$$W@$;:::::::::;;!=!==/:::!=!;:!/T)uoD@  -----   ----
+---         ---- @@@#aaaZaoTTuuuuuuuTTT))//+==!!;;;;:;)D$W$$$$$DDDMM$$$$$W$$$$$$$$$$$WW@Z:::::::::;;;;!=!==):::!=!;;!;!+Tu=+/o$@  -----  ------
+-  ---------- @@#aaaZoooZouuuuuuuuuuuTT)))/++=!!;;:::::=DWW$$M$$$$$$$$$$$$$$$$$$$$$WW@$=::::::::::;!!==!==)+::;;=!::::;;!)+;;;!=+T#M@O#//aa#  --\\
+ @@@@@@@  @@@@aaZooouuuouuuuuuuuuouuuTTT))//+===!;;:::::;u$W$$$$$$$$$$$$$$$$$$$$$WW@@o::::::::::;;;!==!++/u!:::;!=!:;;;::;==;::::::!+!;:::::;T$  \\\
+  ####aaDDO#aZuuuououuuuuuuuuuuuuuuuuTTT)))//+==!!;;=:::::;#@$W$$$$$$$$$$$$$$$$WW@$a!:::::::::::;!===++==Tu:::;!!!!!!;;:::::;:::::;;:;:::::::;+)#W \\-
+\ aaaaZooZaaa##ZoouuuuouuuuuuuuuuuouuTTTT)))//+=+//+++!:::::;$@$$$$$$$$$$$$$WWW@$Z=:::::::::::!!==+=++++/T=::;!!==!;!;::::::::::;;::::::::::::!=/T#M |
+\ ##aaaZoooooooaaaZouuuuuuuuuuuuuuuuuuuTTT)))/))oT)/=++=!:::::=W@W$$$$$$$$WWWWMo+;:::::::::::!==++==+//+)T:::;!!!!!!;::::;;;:;::;:::::::::::::!==/)///
+\  OOaaZaooooooooZaaaZouuuuuuuuuuuuuuuuTTT)))TooT))/++===+=;::::;O@WWWWWWWMD#u+=;::::::::::;!===//+///)/oT!::;!!!=!::::::;!;::;;:::::::::::::;=+/+=! /
+\\ #OO#aaZoooooooooooaaaZouuuuuuuuuuuuuuTTTuuZouu))/)/+=+=====;:::;#@W$$OaT+!!!;!;:::::::;!===//))))///To++;:;!==!::::;;;;!!;;::::::::::::::;!+/+!:://
+ | #OO#aaaZZZoooooooooooZZaZouuuuuuuuuuooouuuuuuu)T)/+///++=!;;;!;;;;TZu/=!!!!!!!;::::::!=++//)))))))))u/+/;::===;:::;!!;;;;!;:;::::::::::::!+/+;:::|
+ \\ #OD#aaaaZoaooooooooooZoZaZouuuTTuTTTuTT)T)T)))///)/+/=+!=!;;;;;;;;!!==+===!;:::::::;;=////))/)))TT)u;=+=;;!!!::::!!!!;;;!:;:::::::::::::+//!::://
+  \ ##OD#aa#ZZZoooooooooooooooaaouTTTTTTTTT)))))//+++++//=+====!!;:::::::;;=+;:::::;:;!=++/)))TT))))Tuu):!+=!;!;;::::===!;;::::::::::::::::;=)=::::/
+  \\ a#DD#aaaZZoooooooooooooooZZaaoTTTTTT))TuTT))))/++====!=!!!!;;::::::+oTuu=;;::::;=TT))))))T))))))T);;//=;;;:;::;!!===!;;:::::::::::::::!))!::://
+   \ a#ODD#aaaZZZZoooooouuuuuuuuoZaZuTTT)))TTuuTT)))//+=====!!;;;:::::::!u)oWMZ;:::::::=TuuuT)))T)))T);:!//!;!;;;;;=======!;:::::::::::::::=/+;:::/
+   \\ ##ODD##aZZoZooooooouoouuuuuuoZaoTT))))TuuuuuTT)//++=====!!;;;;:::;=)$@@@@M:::::::::+oZuuuT)TT)T!:;=+=;;;;!=====+===!!;:::::::::::::::+)+::://
+    \ #a#ODO#aZZZZZZoooooouuuuuuuuuooaou)))))uouuuuuuT))//=====!!!;;;;!+ua@@@@@$;::::::::::=oouTTT)u=::!+=;;;!=+=+=+++===!;::::::::::::::::=T=:::/
+    \\ ###OOO#ZZZZZZZooooououuuuTTTToZaau)))))uooZooouT))/++=====!!!;;=Tuo@@@@@Z!;:;;!!!;::::/#auuo/::;=+=;!=/+++++++=!!!;;::::::::::::::::=)=:://
+     \ #a##OM#aZZZZZooooooooouuuuTTTTuoaou))))uoZZZouuuu))/++=====!!!;=uoaT#@$//=;;!=====!!!;:!T#aT:::!=====//+====++=;;!;;::::::::::::::::+u+::/
+.    \\ #a##DD#aZaaaZZooooooooouuTTT)ToZaoT)))TuZZaZooT)))/+/+====!!!!=)ao))/!=//=!!!!==++=++=!;;);:::!++++)/+======!!;!!!;;:::::::::::::::=u)://
+.     \\ aa#ODO#ZaZoZoZoooooZoouuuTT))uoaao))))uZaaaouuT))/)//+=====!!=+ou)))/)))/=!!;!!=+////+=;::::;=/)/))+!!!!!=!!!!!=!;;;::::::::::::::=T///
+.     \\ aa##OD#ZooooooooZZZoooouuuT)))uoZao)))uZaa#ZouTT))/)T)=====!!!=ouT))))))))=!;;!=++)))/=!:::;!)T)))+!;;;!+==!!;===!;;::::::::::::::!T)//
+       \\ Zaa#OOaoZZZZooZZoZoZoouuuT))))uoaZu)ToZaa#ZouTT)))T))+=====!!=TuuT//)))T))!::;!=/)///=;:::;!)Tu)/=!!:;;!=!!!!===;!!::::::::::::::!)//
+        \ ooa##D#aooZZZoZooZaZoooouT)))))uooouuoZa##Zou))))TTuT+=====!!=/ou))))T)T))=;:;;!=/))/=;::;!=)uu)+=!;:;;!;!!==+==;;;;:::::::::::::;//     .
+   .    \\ oZa##OaooZZaZaooZZaoooouuT))))TuuuuooZa##Zou)TTTTTTT)======!!/ZZ))/)T))TT)!;:;;=/T)+!;:;!=+)uT)+=;;::;;!!==+=!!;;:::::::::::::::;//     .
+   .     \\ uoa#O#ZoaZZoooZaaaZoooouT)))))Tuuooooa##aouTuT/)uT))+=====!!+Zo))))T))oTu!;::;!/T/=;;;!!//)T)/=!!;::;;!=====;;::::;;:;::::::::://
+   .      \\ uZ###aZZZZoooZZZaaooZouuT)))))Tuuouoaa#aooT)))Tu)))+=====!!=TaT/+)/))TTT/;:::!+/=!!;!==/))T//=!:::;!!!====;::::::;!;;;::::::://
+           \ uua###aaZaZooZZZZoZZZoouT))))/)TuooZZaaZouT))TTuu)))====!!!!)ou/)uo/+)u));:::;!==!!====)))))/=;:::;!!===!!;:::::!;;;!;:::::::/     .
+      .    \\ uZa###aaaZooZaaZZaooouoT)))///)uuo#aaaZou)//)TuuT)))===!!!!=/u))D@@#)Tuu=::::;;!!!===/))TT)+!;;:;;!!===!;;;:;;;!!!!!;:::::://     .
+      .     \\ uZa#O#ZZouoZZaaZZZooouu)))////TuoaZaaZou))))Tuu)//)===!!!!!=oD$#@W@=TTo)::::;!;!;;==/))T))=!::;;:!!=!=!;;;:::;!!!!::::::://
